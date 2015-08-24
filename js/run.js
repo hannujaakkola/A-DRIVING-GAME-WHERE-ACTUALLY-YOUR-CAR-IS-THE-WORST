@@ -1,13 +1,3 @@
-const canvas = document.getElementById('canvas')
-
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-const ctx = canvas.getContext('2d')
-
-const blockW = 1200
-const blockH = 100
-
 function renderRect(ctx, x1, y1, x2, y2, x3, y3, x4, y4) {
   var path = new Path2D()
   path.moveTo(x1, y1)
@@ -18,29 +8,17 @@ function renderRect(ctx, x1, y1, x2, y2, x3, y3, x4, y4) {
   ctx.fill(path)
 }
 
-var colors = {
-  1 : '#000',
-  2 : '#fff',
-  3 : '#00f'
-}
-console.log(colors)
-
-var lanes = [80, 160, 240, 320, 400]
-
 function drawSprite(unit, size) {
   ctx.fillStyle = unit.color
   ctx.fillRect(unit.x, unit.y, unit.sizeX, unit.sizeY)
 
   ctx.fillStyle = '#000'
   ctx.fillRect(unit.x, unit.y + unit.sizeY / 3, unit.sizeX, unit.sizeY / 2)
-
-  ctx.fillStyle = '#0f0'
-  ctx.fillRect(unit.x, unit.y, 1, 1)
 }
 
 function updatePosition(unit) {
   if (!unit.camera) {
-    unit.y -= unit.speed
+    unit.y -= unit.speed - player.speed
   }
 
   // unit.x = lanes[unit.lane]
@@ -55,37 +33,28 @@ function updatePosition(unit) {
 
 
 document.onkeydown = function(e) {
-  switch (e.keyCode) {
+  if (e.keyCode == 37 && player.lane > 0) {
     // left
-    case 37:
-      if (player.lane > 0) {
-        player.lane--
-      }
-      break
+    player.lane--
+  } else if (e.keyCode == 39) {
     // right
-    case 39:
-      if (player.lane < lanes.length-1) {
-        player.lane++
-      }
-      break
-    // up
-    case 38:
-      if (player.speed < player.maxSpeed) {
-        player.speed += player.maxSpeed / 5
-      }
-      break
-    // down
-    case 40:
-      player.speed -= player.maxSpeed / 10
-      player.speed = Math.max(player.speed, 0)
-      break
+    player.lane++
   }
 
+  if (e.keyCode == 38 && player.speed < player.maxSpeed) {
+    // up
+    player.speed += player.maxSpeed / 10
+  } else if (e.keyCode == 40) {
+    // down
+    player.speed -= player.maxSpeed / 10
+  }
 }
 
 var grass = document.getElementById('grass')
 grass.style.top = -100
 var grassTop
+
+var enemies = []
 
 function render() {
   grassTop = parseInt(grass.style.top, 10) + player.speed * 2
@@ -96,10 +65,19 @@ function render() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+  player.speed = Math.max(player.speed, 0)
   updatePosition(player)
 
-  enemies.forEach(function(enemy) {
+  if (enemies.length < 5) {
+    enemies.push(createEnemy())
+  }
+
+  enemies.forEach(function(enemy, index) {
     updatePosition(enemy)
+
+    if (enemy.y + enemy.sizeY < 0) {
+      enemies.splice(index, 1)
+    }
   })
 }
 
@@ -107,6 +85,6 @@ function render() {
   window.requestAnimationFrame(animloop);
   render();
 })();
-  render();
+  // render();
 
 
