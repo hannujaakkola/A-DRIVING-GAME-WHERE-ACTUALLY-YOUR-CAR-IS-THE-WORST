@@ -16,5 +16,4 @@ var colors = ['#0cc', '#0c0', '#00c']
 var enemies = [
   [], [], [], [], []
 ]
-var enemiesToCreate = 6
-
+var enemiesToCreate = 10

@@ -52,7 +52,7 @@ var enemyInterval = window.setInterval(function() {
   } else {
     clearInterval(enemyInterval)
   }
-}, 1000)
+}, 2000)
 
 function render() {
   grassTop = parseInt(grass.style.top, 10) + player.speed * 2
@@ -68,32 +68,32 @@ function render() {
   player.speed = Math.max(0, player.speed)
   updatePosition(player)
 
-  enemies.forEach(function(enemiesInLane, lane) {
-    enemiesInLane.forEach(function(enemy, index) {
-      if (enemies[lane][index-1] && enemy.y - enemies[lane][index-1].y < 100) {
+  for (lane = 4; lane >= 0; lane--) {
+    for (i = enemies[lane].length - 1; i >= 0; i--) {
+      var enemy = enemies[lane][i]
+
+      if (enemies[lane][i-1] && enemy.y - enemies[lane][i-1].y < 100) {
         if (enemy.x === lanes[lane-1]) {
-          enemies[lane].splice(index, 1)
+          enemies[lane].splice(i, 1)
           enemies[lane-1].push(enemy)
           enemies[lane-1].sort(function(a, b) {
             return a.y - b.y
           }) 
         } else if (enemy.x === lanes[0]) {
-          enemy.speed -= enemy.speed - enemies[lane][index-1].speed
-        } else if (enemy.lane === lane && enemy.speed > enemies[lane][index-1].speed) {
+          enemy.speed -= enemy.speed - enemies[lane][i-1].speed
+        } else if (enemy.lane === lane && enemy.speed > enemies[lane][i-1].speed) {
           enemy.lane--
         }
-        // } else {
-        // }
       }
 
       updatePosition(enemy)
 
       if (enemy.y + enemy.sizeY < 0) {
-        enemies[lane].splice(index, 1)
+        enemies[lane].splice(i, 1)
         createEnemy()
       }
-    })
-  })
+    }
+  }
 }
 
 (function animloop(){
