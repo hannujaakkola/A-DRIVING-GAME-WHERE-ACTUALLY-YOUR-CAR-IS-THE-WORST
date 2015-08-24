@@ -7,7 +7,7 @@ function copyObject(oldObject) {
   return newObject
 }
 
-var previousLane;
+var previousLane
 function createEnemy() {
   var enemy = copyObject(unit)
   enemy.color = colors[Math.floor(Math.random() * colors.length)]
@@ -17,10 +17,11 @@ function createEnemy() {
   } while (enemy.lane === previousLane)
   previousLane = enemy.lane
   
+  enemy.y += Math.random() * 200
   enemy.x = lanes[enemy.lane]
-  enemy.speed = Math.random() * (5 - enemy.lane) + player.maxSpeed
+  enemy.speed = Math.random() * (5 - enemy.lane) + player.maxSpeed + 2
 
-  return enemy
+  enemies[enemy.lane].push(enemy)
 }
 
 var unitSize = 2
@@ -39,4 +40,4 @@ player = copyObject(unit)
 player.lane = 2
 player.camera = true
 player.color = '#FE9307'
-player.y -= 200
+player.y = 250

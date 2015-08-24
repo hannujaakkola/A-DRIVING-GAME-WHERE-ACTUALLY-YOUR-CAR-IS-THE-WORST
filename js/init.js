@@ -11,3 +11,10 @@ const blockH = 100
 // margin 200px + lane 80px + border 2px + car margin 10px
 var lanes = [212, 292, 372, 452, 532]
 var colors = ['#0cc', '#0c0', '#00c']
+
+// array for every lane
+var enemies = [
+  [], [], [], [], []
+]
+var enemiesToCreate = 6
+
