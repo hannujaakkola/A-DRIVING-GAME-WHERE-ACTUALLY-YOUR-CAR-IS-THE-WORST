@@ -19,7 +19,7 @@ function createEnemy() {
   
   enemy.y += Math.random() * 200
   enemy.x = lanes[enemy.lane]
-  enemy.speed = Math.random() * (5 - enemy.lane) + player.maxSpeed + 2
+  enemy.speed = Math.random() * (8 - enemy.lane * 2) + 6
 
   enemies[enemy.lane].push(enemy)
 }
@@ -35,6 +35,7 @@ var unit = {
   speed : 0,
   maxSpeed : 4
 }
+
 console.log(unit)
 player = copyObject(unit)
 player.lane = 2

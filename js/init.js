@@ -1,19 +1,23 @@
-const canvas = document.getElementById('canvas')
+var canvas = document.getElementById('canvas')
 
 canvas.width = 800
 canvas.height = 500
 
-const ctx = canvas.getContext('2d')
+var ctx = canvas.getContext('2d')
 
-const blockW = 1200
-const blockH = 100
+var blockW = 1200
+var blockH = 100
+
+var score = document.getElementById('score')
+var distance = 0
+
 
 // margin 200px + lane 80px + border 2px + car margin 10px
 var lanes = [212, 292, 372, 452, 532]
-var colors = ['#0cc', '#0c0', '#00c']
+var colors = ['#2ee', '#2e2', '#22e', '#ee2', '#e22', '#e2e',]
 
 // array for every lane
 var enemies = [
   [], [], [], [], []
 ]
-var enemiesToCreate = 10
+var enemiesToCreate = 7

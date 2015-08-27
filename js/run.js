@@ -68,6 +68,9 @@ function render() {
   player.speed = Math.max(0, player.speed)
   updatePosition(player)
 
+  distance += player.speed
+  score.innerHTML = Math.round(distance)
+
   for (lane = 4; lane >= 0; lane--) {
     for (i = enemies[lane].length - 1; i >= 0; i--) {
       var enemy = enemies[lane][i]
@@ -88,6 +91,16 @@ function render() {
 
       updatePosition(enemy)
 
+      // collision detection
+      if (player.lane === lane
+      && enemy.y < 320
+      && enemy.y + enemy.sizeY > 255) {
+      // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
+        console.log('kill')
+        window.cancelAnimationFrame(gameloop)
+      }
+
+      // kill the enemy if it goes away from the screen
       if (enemy.y + enemy.sizeY < 0) {
         enemies[lane].splice(i, 1)
         createEnemy()
@@ -97,7 +110,7 @@ function render() {
 }
 
 (function animloop(){
-  window.requestAnimationFrame(animloop);
+  gameloop = window.requestAnimationFrame(animloop);
   render();
 })();
   // render();
