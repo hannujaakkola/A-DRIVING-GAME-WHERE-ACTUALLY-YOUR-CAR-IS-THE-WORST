@@ -13,7 +13,7 @@ function createEnemy() {
   enemy.color = colors[Math.floor(Math.random() * colors.length)]
   
   do {
-    enemy.lane = Math.floor(Math.random() * 5)
+    enemy.lane = Math.floor(Math.random() * 5) + 1
   } while (enemy.lane === previousLane)
   previousLane = enemy.lane
   
@@ -38,7 +38,7 @@ var unit = {
 
 console.log(unit)
 player = copyObject(unit)
-player.lane = 2
+player.lane = 6
 player.camera = true
 player.color = '#FE9307'
 player.y = 250

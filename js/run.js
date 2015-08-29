@@ -21,7 +21,7 @@ document.onkeydown = function(e) {
   if (e.keyCode == 37 && player.lane > 0) {
     // left
     player.lane--
-  } else if (e.keyCode == 39) {
+  } else if (e.keyCode == 39 && player.lane < 6) {
     // right
     player.lane++ 
   }
@@ -71,7 +71,7 @@ function render() {
   distance += player.speed
   score.innerHTML = Math.round(distance)
 
-  for (lane = 4; lane >= 0; lane--) {
+  for (lane = 5; lane >= 1; lane--) {
     for (i = enemies[lane].length - 1; i >= 0; i--) {
       var enemy = enemies[lane][i]
 
@@ -82,9 +82,9 @@ function render() {
           enemies[lane-1].sort(function(a, b) {
             return a.y - b.y
           }) 
-        } else if (enemy.x === lanes[0]) {
+        } else if (enemy.x === lanes[1]) {
           enemy.speed -= enemy.speed - enemies[lane][i-1].speed
-        } else if (enemy.lane === lane && enemy.speed > enemies[lane][i-1].speed) {
+        } else if (enemy.lane === lane) {
           enemy.lane--
         }
       }
@@ -97,7 +97,7 @@ function render() {
       && enemy.y + enemy.sizeY > 255) {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
         console.log('kill')
-        window.cancelAnimationFrame(gameloop)
+        // window.cancelAnimationFrame(gameloop)
       }
 
       // kill the enemy if it goes away from the screen
