@@ -9,6 +9,7 @@ var blockW = 1200
 var blockH = 100
 
 var score = document.getElementById('score')
+var speed = document.getElementById('speed')
 var distance = 0
 
 
@@ -20,4 +21,4 @@ var colors = ['#2ee', '#2e2', '#22e', '#ee2', '#e22', '#e2e',]
 var enemies = [
   0, [], [], [], [], []
 ]
-var enemiesToCreate = 7
+var enemiesToCreate = 5

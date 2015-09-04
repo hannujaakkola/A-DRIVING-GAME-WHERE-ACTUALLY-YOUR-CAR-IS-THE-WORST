@@ -19,7 +19,7 @@ function createEnemy() {
   
   enemy.y += Math.random() * 200
   enemy.x = lanes[enemy.lane]
-  enemy.speed = Math.random() * (8 - enemy.lane * 2) + 6
+  enemy.speed = Math.random() * (12 - enemy.lane * 3) + 8
 
   enemies[enemy.lane].push(enemy)
 }
@@ -40,5 +40,6 @@ console.log(unit)
 player = copyObject(unit)
 player.lane = 6
 player.camera = true
-player.color = '#FE9307'
+player.color = '#B38A51'
 player.y = 250
+player.sizeY = 60

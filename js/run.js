@@ -28,10 +28,10 @@ document.onkeydown = function(e) {
 
   if (e.keyCode == 38 && player.speed < player.maxSpeed) {
     // up
-    playerThrottle = player.maxSpeed / 10
+    playerThrottle = player.maxSpeed / 200
   } else if (e.keyCode == 40) {
     // down
-    player.speed -= player.maxSpeed / 10
+    player.speed -= player.maxSpeed / 20
   }
 }
 
@@ -55,7 +55,7 @@ var enemyInterval = window.setInterval(function() {
 }, 2000)
 
 function render() {
-  grassTop = parseInt(grass.style.top, 10) + player.speed * 2
+  grassTop = parseInt(grass.style.top, 10) + player.speed * 3
   if (grassTop > -50) {
     grassTop -= 50;
   }
@@ -63,13 +63,27 @@ function render() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  player.speed += playerThrottle
+  if ((player.lane === 0 || player.lane === 6) && player.speed > 1) {
+    if (distance > 5) {
+      distance -= 5
+    }
+
+    player.speed *= .95    
+  } else {
+    player.speed += playerThrottle
+  }
+
   player.speed = Math.min(player.maxSpeed, player.speed)
   player.speed = Math.max(0, player.speed)
   updatePosition(player)
-
+  
   distance += player.speed
+  speed.innerHTML = player.speed
   score.innerHTML = Math.round(distance)
+
+  if (player.maxSpeed > .5) {
+    player.maxSpeed -= .0003
+  }
 
   for (lane = 5; lane >= 1; lane--) {
     for (i = enemies[lane].length - 1; i >= 0; i--) {
