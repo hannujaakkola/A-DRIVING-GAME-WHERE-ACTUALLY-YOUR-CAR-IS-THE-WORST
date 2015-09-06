@@ -37,11 +37,18 @@ var unit = {
   car : 'basic'
 }
 
-console.log(unit)
-player = copyObject(unit)
-player.car = 'player'
-player.lane = 6
-player.camera = true
-player.color = '#B38A51'
-player.y = 250
-player.sizeY = 60
+function unitInit() {
+  player = copyObject(unit)
+  player.car = 'player'
+  player.lane = 6
+  player.camera = true
+  player.color = '#B38A51'
+  player.y = 250
+  player.sizeY = 60
+
+  enemies = [
+    0, [], [], [], [], []
+  ]
+
+  enemiesToCreate = 5
+}

@@ -19,7 +19,5 @@ var lanes = [132, 212, 292, 372, 452, 532, 612]
 var colors = ['#2ee', '#2e2', '#ee2', '#e22', '#e2e']
 
 // array for every lane
-var enemies = [
-  0, [], [], [], [], []
-]
-var enemiesToCreate = 5
+var enemies
+var enemiesToCreate

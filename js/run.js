@@ -17,11 +17,15 @@ function updatePosition(unit) {
 }
 
 var started
+var gameOver = false
 document.onkeydown = function(e) {
   if (!started) {
     start()
     started = true
     message.style.display = 'none'
+  } else if (gameOver) {
+    newGame()
+    gameOver = false
   }
 
   if (e.keyCode == 37 && player.lane > 0) {
@@ -116,10 +120,14 @@ function render() {
       && enemy.y < 320
       && enemy.y + enemy.sizeY > 255) {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
-        console.log('kill')
-        // window.cancelAnimationFrame(gameloop)
-        // message.innerHTML = 'Crash'
-        // message.style.display = 'block'
+        window.cancelAnimationFrame(gameloop)
+        message.innerHTML = 'OH NO!<br>YOU CRASHED!'
+        message.style.display = 'block'
+        window.setTimeout(function() {
+          message.innerHTML += '<br><br><br><br><br>press any key to play again'
+          gameOver = true
+        }, 500)
+        // newGame()
       }
 
       // kill the enemy if it goes away from the screen
@@ -138,5 +146,12 @@ function start() {
   })()
 }
 
-// render once
-render()
+function newGame() {
+  message.innerHTML = 'A DRIVING GAME WHERE ACTUALLY YOUR CAR IS THE WORST<br><br><br>use arrow keys to drive'
+  started = false
+  unitInit()
+
+  render()
+}
+
+newGame()
