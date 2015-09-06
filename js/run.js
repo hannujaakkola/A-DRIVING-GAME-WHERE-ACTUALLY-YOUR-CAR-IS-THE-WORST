@@ -16,8 +16,14 @@ function updatePosition(unit) {
   return unit
 }
 
-
+var started
 document.onkeydown = function(e) {
+  if (!started) {
+    start()
+    started = true
+    message.style.display = 'none'
+  }
+
   if (e.keyCode == 37 && player.lane > 0) {
     // left
     player.lane--
@@ -76,7 +82,7 @@ function render() {
   player.speed = Math.min(player.maxSpeed, player.speed)
   player.speed = Math.max(0, player.speed)
   updatePosition(player)
-  
+    
   distance += player.speed
   speed.innerHTML = player.speed
   score.innerHTML = Math.round(distance)
@@ -112,6 +118,8 @@ function render() {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
         console.log('kill')
         // window.cancelAnimationFrame(gameloop)
+        // message.innerHTML = 'Crash'
+        // message.style.display = 'block'
       }
 
       // kill the enemy if it goes away from the screen
@@ -123,10 +131,12 @@ function render() {
   }
 }
 
-(function animloop(){
-  gameloop = window.requestAnimationFrame(animloop);
-  render();
-})();
-  // render();
+function start() {
+  (function animloop(){
+    gameloop = window.requestAnimationFrame(animloop)
+    render()
+  })()
+}
 
-
+// render once
+render()

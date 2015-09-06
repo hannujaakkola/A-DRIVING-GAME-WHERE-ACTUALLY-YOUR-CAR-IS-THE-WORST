@@ -27,17 +27,19 @@ function createEnemy() {
 var unitSize = 2
 
 var unit = {
-  x : lanes[4],
+  x : lanes[6],
   y : 500,
   sizeX : 60,
   sizeY : 80,
   lane : false,
   speed : 0,
-  maxSpeed : 4
+  maxSpeed : 4,
+  car : 'basic'
 }
 
 console.log(unit)
 player = copyObject(unit)
+player.car = 'player'
 player.lane = 6
 player.camera = true
 player.color = '#B38A51'
