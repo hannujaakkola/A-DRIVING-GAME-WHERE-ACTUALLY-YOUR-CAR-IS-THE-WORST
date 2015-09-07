@@ -33,7 +33,7 @@ var drawCar = {
     ctx.fillStyle = color
     ctx.fillRect(unit.x + 2.5, unit.y + 40, unit.sizeX - 5, 45)
   },
-  van: function(unit, size, color) {
+  truck: function(unit, size, color) {
     ctx.fillRect(unit.x, unit.y + 10, unit.sizeX, 25)
 
     ctx.fillStyle = color

@@ -10,9 +10,7 @@ var blockW = 1200
 var blockH = 100
 
 var score = document.getElementById('tripmeter')
-var speed = document.getElementById('speed')
 var distance = 0
-
 
 // margin 200px + lane 80px + border 2px + car margin 10px
 var lanes = [132, 212, 292, 372, 452, 532, 612]

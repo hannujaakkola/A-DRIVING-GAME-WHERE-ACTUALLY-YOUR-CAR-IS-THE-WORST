@@ -38,7 +38,7 @@ document.onkeydown = function(e) {
 
   if (e.keyCode == 38 && player.speed < player.maxSpeed) {
     // up
-    playerThrottle = player.maxSpeed / 200
+    playerThrottle = player.maxSpeed / 60
   } else if (e.keyCode == 40) {
     // down
     player.speed -= player.maxSpeed / 20
@@ -71,11 +71,10 @@ function render() {
 
     player.speed *= .95    
   } else {
-    player.speed += playerThrottle
-    // - Math.random() / 10
+    player.speed += playerThrottle - Math.random() / 10
 
     if (player.maxSpeed > .5) {
-      player.maxSpeed -= .0003
+      player.maxSpeed -= .0005
     }
   }
 
@@ -83,9 +82,8 @@ function render() {
   player.speed = Math.max(0, player.speed)
   updatePosition(player)
     
-  distance += player.speed
-  speed.innerHTML = player.speed
-  
+  distance += player.speed / 5
+
   var distanceString = String(Math.round(distance))
   var zeroes = ''
   for (var i = 6; i > distanceString.length; i--) {
@@ -117,12 +115,16 @@ function render() {
         }
       }
 
+      // if (enemy.lane === 1 && enemy.speed < 10) {
+      //   enemy.lane++
+      // }
+
       updatePosition(enemy)
 
       // collision detection
       if (player.lane === lane
-      && enemy.y < 320
-      && enemy.y + enemy.sizeY > 255) {
+      && enemy.y < 260
+      && enemy.y + enemy.sizeY > 205) {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
         console.log(player.x, player.y)
         console.log(enemy.x, enemy.y)
@@ -133,7 +135,6 @@ function render() {
           message.innerHTML += '<br><br>press any key to play again'
           gameOver = true
         }, 500)
-        // newGame()
       }
 
       // kill the enemy if it goes away from the screen

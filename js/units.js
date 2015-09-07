@@ -11,19 +11,18 @@ var previousLane
 function createEnemy() {
   var enemy = copyObject(unit)
   enemy.color = colors[Math.floor(Math.random() * colors.length)]
-
-  enemy.car = carPool[Math.floor(Math.random() * carPool.length)]
   
   do {
     enemy.lane = Math.floor(Math.random() * 5) + 1
   } while (enemy.lane === previousLane)
   previousLane = enemy.lane
+
+  enemy.car = carPool[enemy.lane - Math.round(Math.random())]
   
   enemy.y += Math.random() * 200
   enemy.x = lanes[enemy.lane]
-  enemy.speed = Math.random() * (12 - enemy.lane * 3) + cars[enemy.car].speed
+  enemy.speed = Math.random() * (12 - enemy.lane * 2) + cars[enemy.car].speed
   enemy.sizeY = cars[enemy.car].sizeY
-  console.log(enemy)
 
   enemies[enemy.lane].push(enemy)
 }
@@ -34,24 +33,24 @@ var cars = {
     sizeY: 70
   },
   'sport': {
-    speed: 10,
+    speed: 15,
     sizeY: 70
   },
   'sedan': {
-    speed: 8,
+    speed: 9,
     sizeY: 80
   },
   'wagon': {
-    speed: 7,
+    speed: 8,
     sizeY: 85
   },
-  'van': {
+  'truck': {
     speed: 5,
-    sizeY: 90
+    sizeY: 100
   },
 }
 
-var carPool = ['sport', 'sedan', 'sedan', 'wagon', 'wagon', 'van']
+var carPool = ['sport', 'sedan', 'sedan', 'wagon', 'truck', 'wagon']
 
 var unit = {
   y : 600,
@@ -67,7 +66,7 @@ function unitInit() {
   player.camera = true
   player.color = '#B38A51'
   player.x = lanes[6]
-  player.y = 250
+  player.y = 200
   player.sizeY = 55
 
   // array for every lane
