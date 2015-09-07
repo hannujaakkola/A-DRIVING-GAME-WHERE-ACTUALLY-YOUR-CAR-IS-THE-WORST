@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Document</title>
+  <title>A DRIVING GAME WHERE ACTUALLY YOUR CAR IS THE WORST</title>
   <style>
     * {
       margin: 0;
@@ -79,6 +79,43 @@
       background: rgba(0,0,0,.75);
       color: #fff;
     }
+
+    #speedometer {
+      width:100px;
+      height:100px;
+      background: #fefefe;
+      border-radius: 50px;
+      position: absolute;
+      border:1px solid #000;
+      top:425px;
+      left:50px;
+      box-shadow: 5px 5px 0px rgba(0,0,0,.25);
+    }
+
+    #tripmeter, #tripmeter-boxes {
+      border:1px solid #000;
+      position: absolute;
+      width: 117px;
+      top:510px;
+      left:42px;
+      line-height: 33px;
+    }
+
+    #tripmeter {
+      box-shadow: 5px 5px 0px rgba(0,0,0,.25);
+      z-index: 1;
+    }
+
+    #tripmeter-boxes {
+      background: #fefefe;
+    }
+
+    #tripmeter-boxes div {
+      border-right: 1px solid #000;
+      width:19.3px;
+      height:33px;
+      float: left;
+    }
   </style>
 </head>
 <body>
@@ -87,6 +124,15 @@
     <div id="score"></div>
     <div id="speed"></div>
     <div id="grass"></div>
+    <div id="speedometer"></div>
+    <div id="tripmeter-boxes">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="tripmeter"></div>
     <div class="lanes">
       <div></div>
       <div></div>

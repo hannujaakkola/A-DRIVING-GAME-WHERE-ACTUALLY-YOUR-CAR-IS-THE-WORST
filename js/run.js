@@ -55,15 +55,6 @@ var grass = document.getElementById('grass')
 grass.style.top = -100
 var grassTop
 
-var enemyInterval = window.setInterval(function() {
-  if (enemiesToCreate) {
-    createEnemy()
-    enemiesToCreate--
-  } else {
-    clearInterval(enemyInterval)
-  }
-}, 2000)
-
 function render() {
   grassTop = parseInt(grass.style.top, 10) + player.speed * 3
   if (grassTop > -50) {
@@ -81,6 +72,11 @@ function render() {
     player.speed *= .95    
   } else {
     player.speed += playerThrottle
+    // - Math.random() / 10
+
+    if (player.maxSpeed > .5) {
+      player.maxSpeed -= .0003
+    }
   }
 
   player.speed = Math.min(player.maxSpeed, player.speed)
@@ -89,11 +85,19 @@ function render() {
     
   distance += player.speed
   speed.innerHTML = player.speed
-  score.innerHTML = Math.round(distance)
-
-  if (player.maxSpeed > .5) {
-    player.maxSpeed -= .0003
+  
+  var distanceString = String(Math.round(distance))
+  var zeroes = ''
+  for (var i = 6; i > distanceString.length; i--) {
+    zeroes += '0'
   }
+
+  score.innerHTML = zeroes + distanceString
+
+  ctx.beginPath();
+  ctx.moveTo(100, 400);
+  ctx.lineTo(100 - Math.cos(player.speed - .25) * 40, 400 - Math.sin(player.speed - .25) * 40);
+  ctx.stroke();
 
   for (lane = 5; lane >= 1; lane--) {
     for (i = enemies[lane].length - 1; i >= 0; i--) {
@@ -120,11 +124,13 @@ function render() {
       && enemy.y < 320
       && enemy.y + enemy.sizeY > 255) {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
+        console.log(player.x, player.y)
+        console.log(enemy.x, enemy.y)
         window.cancelAnimationFrame(gameloop)
-        message.innerHTML = 'OH NO!<br>YOU CRASHED!'
+        message.innerHTML = 'OH NO!<br>YOU CRASHED!<br><br>YOU DROVE ' + Math.round(distance) + ' METERS'
         message.style.display = 'block'
         window.setTimeout(function() {
-          message.innerHTML += '<br><br><br><br><br>press any key to play again'
+          message.innerHTML += '<br><br>press any key to play again'
           gameOver = true
         }, 500)
         // newGame()
@@ -149,6 +155,7 @@ function start() {
 function newGame() {
   message.innerHTML = 'A DRIVING GAME WHERE ACTUALLY YOUR CAR IS THE WORST<br><br><br>use arrow keys to drive'
   started = false
+  distance = 0
   unitInit()
 
   render()
