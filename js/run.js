@@ -129,6 +129,7 @@ function render() {
 
       // collision detection
       if (player.lane === lane
+      && Math.abs(lanes[lane] - lanes[player.lane]) < 10
       && enemy.y < 260
       && enemy.y + enemy.sizeY > 205) {
       // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
