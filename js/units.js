@@ -33,19 +33,19 @@ var cars = {
     sizeY: 70
   },
   'sport': {
-    speed: 15,
+    speed: 12,
     sizeY: 70
   },
   'sedan': {
-    speed: 9,
+    speed: 7,
     sizeY: 80
   },
   'wagon': {
-    speed: 8,
+    speed: 6,
     sizeY: 85
   },
   'truck': {
-    speed: 5,
+    speed: 4,
     sizeY: 100
   },
 }

@@ -47,7 +47,7 @@ document.onkeydown = function(e) {
 
 document.onkeyup = function(e) {
   if (e.keyCode == 38) {
-    playerThrottle = -0.01
+    playerThrottle = 0
   }
 }
 
@@ -65,17 +65,23 @@ function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   if ((player.lane === 0 || player.lane === 6) && player.speed > 1) {
-    if (distance > 5) {
-      distance -= 5
-    }
+    // if (distance > 5) {
+    //   distance -= 1
+    // }
 
     player.speed *= .95    
-  } else {
+
+    player.maxSpeed -= player.speed / 200
+  }
+
+  if (playerThrottle) {
     player.speed += playerThrottle - Math.random() / 10
 
     if (player.maxSpeed > .5) {
       player.maxSpeed -= .0005
     }
+  } else {
+    player.speed -= .01
   }
 
   player.speed = Math.min(player.maxSpeed, player.speed)
