@@ -65,10 +65,6 @@ function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   if ((player.lane === 0 || player.lane === 6) && player.speed > 1) {
-    // if (distance > 5) {
-    //   distance -= 1
-    // }
-
     player.speed *= .95    
 
     player.maxSpeed -= player.speed / 200
@@ -121,10 +117,6 @@ function render() {
         }
       }
 
-      // if (enemy.lane === 1 && enemy.speed < 10) {
-      //   enemy.lane++
-      // }
-
       updatePosition(enemy)
 
       // collision detection
@@ -132,9 +124,6 @@ function render() {
       && Math.abs(lanes[lane] - lanes[player.lane]) < 10
       && enemy.y < 260
       && enemy.y + enemy.sizeY > 205) {
-      // && (enemy.x < player.x + player.sizeX || enemy.x + enemy.sizeX < player.x)) {
-        console.log(player.x, player.y)
-        console.log(enemy.x, enemy.y)
         window.cancelAnimationFrame(gameloop)
         message.innerHTML = 'OH NO!<br>YOU CRASHED!<br><br>YOU DROVE ' + Math.round(distance) + ' METERS'
         message.style.display = 'block'
